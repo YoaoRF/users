@@ -1,0 +1,312 @@
+/* Estilos generales para el banner */
+
+/* Sección de categorías */
+.categories-section {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que las categorías se acomoden en varias filas si es necesario */
+}
+
+.category {
+  position: relative;
+  width: 30%;  /* Aumentamos el tamaño de las categorías */
+  height: 300px; /* Aumentamos la altura para hacerlas más grandes */
+  overflow: hidden;
+  border-radius: 10px;
+  box-sizing: border-box; /* Asegura que padding y border no afecten el tamaño */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen cubra completamente el contenedor */
+  border-radius: 10px; /* Bordes redondeados en la imagen */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: white;
+}
+
+.category:hover .overlay {
+  opacity: 1; /* Aparece la superposición al pasar el mouse */
+}
+
+.overlay h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.overlay button {
+  padding: 10px 15px;
+  background-color: #007bff; /* Azul del botón */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.overlay button:hover {
+  background-color: #0056b3; /* Cambia color al pasar el mouse */
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .categories {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .category {
+      width: 90%; /* Aumentamos el ancho de las categorías en pantallas pequeñas */
+      height: 250px; /* Reducimos la altura en pantallas pequeñas */
+  }
+}
+
+/* Banner */
+.banner {
+  background-image: url('/public/img/Ciber.jpg'); /* Ruta relativa a la imagen */
+  background-size: cover;
+  background-position: left center; /* Asegura que comience desde el lado izquierdo */
+  height: 600px; /* Altura ajustada al diseño */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden; /* Oculta el contenido que sobresale */
+  animation: moveBackground 10s linear infinite; /* Llama a la animación */
+}
+
+/* Definir la animación con keyframes */
+@keyframes moveBackground {
+  0% {
+    background-position: left center; /* Empieza desde el lado izquierdo */
+  }
+  100% {
+    background-position: right center; /* Termina en el lado derecho */
+  }
+}
+
+
+
+/* Sombra sobre la imagen para resaltar el texto */
+.banner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Transparencia para destacar el contenido */
+  z-index: 1;
+}
+
+/* Contenido del banner */
+.banner-content {
+  position: relative;
+  z-index: 2;
+}
+
+.banner h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.banner h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.banner h1 span {
+  color: orange; /* Resalta la palabra clave */
+}
+
+.banner-button {
+  padding: 10px 20px;
+  background-color: #007bff; /* Azul del botón */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.banner-button:hover {
+  background-color: #0056b3; /* Cambia el color al pasar el cursor */
+}
+
+/* Sección de categorías */
+.categories-section {
+  margin-top: 20px; /* Espacio entre el banner y esta sección */
+  padding: 20px;
+  background-color: #f4f4f4; /* Fondo claro */
+  border-radius: 10px;
+}
+
+.categories-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.categories {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.category {
+  position: relative;
+  width: 30%;
+  overflow: hidden;
+  border-radius: 10px;
+  height: 300px; /* Tamaño mayor de las categorías */
+}
+
+.category img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+.category .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 10px;
+}
+
+.category:hover .overlay {
+  opacity: 1;
+}
+
+.category h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.category button {
+  padding: 10px 15px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.category button:hover {
+  background-color: darkorange;
+}
+
+/* Sección de proyectos */
+.projects-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f4f4f4; /* Fondo claro */
+  border-radius: 10px;
+}
+
+.projects-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filters {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filters button {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background-color: #0056b3;
+}
+
+.projects {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.project {
+  text-align: center;
+  width: 22%;
+}
+
+.project img {
+  width: 80px;
+  height: 80px;
+}
+
+.project p {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .categories {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .category {
+      width: 90%; /* Aumentamos el ancho de las categorías en pantallas pequeñas */
+      height: 250px; /* Reducimos la altura en pantallas pequeñas */
+  }
+
+  .projects {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .project {
+      width: 90%;
+  }
+}

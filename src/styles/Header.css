@@ -1,0 +1,135 @@
+/* Estilos generales del Header */
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  position: relative;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo a {
+  color: #fff;
+  font-size: 1.8rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-menu .menu-list {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+.navbar-menu .menu-list li a,
+.navbar-menu .menu-list li span {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-menu .menu-list li a:hover {
+  color: #ffca28;
+}
+
+.logout-button {
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+/* Estilos de la barra de búsqueda */
+.navbar-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-form {
+  display: flex;
+  position: relative;
+}
+
+.search-input {
+  padding: 10px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  width: 250px;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1rem;
+  transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.search-input:focus {
+  width: 300px;
+  padding: 12px;
+  outline: none;
+  border-color: #ffca28;
+}
+
+.search-button {
+  background-color: #ffca28;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #e59a21;
+}
+
+.search-input::placeholder {
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-form {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-input {
+    width: 200px;
+  }
+
+  .search-input:focus {
+    width: 250px;
+  }
+}

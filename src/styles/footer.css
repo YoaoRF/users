@@ -1,0 +1,102 @@
+/* Estilos generales del Footer */
+.footer {
+  background-color: #1c1c1c;
+  color: #fff;
+  padding: 40px 10%;
+  font-family: 'Arial', sans-serif;
+  margin-top: 50px;
+}
+
+.container-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: left;
+}
+
+/* Sección de contenido del footer */
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* Títulos del Footer */
+.title-footer {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #ffca28;
+}
+
+.footer-content ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.footer-content ul li {
+  margin-bottom: 8px;
+}
+
+.footer-content ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-content ul li a:hover {
+  color: #ffca28;
+}
+
+/* Estilos de los íconos de redes sociales */
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  font-size: 1.5rem;
+  color: #fff;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+  color: #ffca28;
+}
+
+/* Estilos para el boletín informativo */
+.newsletter .content p {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+/* Derechos de autor */
+.copyright {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Diseño responsive */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-content ul {
+    margin-top: 10px;
+  }
+
+  .footer-content ul li {
+    margin: 5px 0;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
