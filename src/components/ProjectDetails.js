@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; 
-import axios from "axios";
-import "/Users/Steven/usuarios/fronted/src/styles/ProjectDetails.css" 
+import { useParams } from "react-router-dom";
+import { getProyectos } from "../api"; // Asegúrate de importar tu función de API
+import "../styles/ProjectDetails.css";
 
-const ProjectDetails = ({ projects, anos, loading }) => {
-  const { id } = useParams(); 
+const ProjectDetails = () => {
+  const { id } = useParams();
   const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const foundProject = projects.find(p => p.id === parseInt(id));
-    setProject(foundProject);
-  }, [id, projects]); 
+    const fetchProject = async () => {
+      try {
+        const data = await getProyectos(); // Obtener todos los proyectos
+        const foundProject = data.find((p) => p.id === parseInt(id)); // Buscar el proyecto por ID
+        setProject(foundProject);
+      } catch (error) {
+        console.error("Error al obtener los datos del proyecto:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [id]);
 
   if (loading) {
     return <div className="loading">Cargando...</div>;
@@ -22,30 +34,72 @@ const ProjectDetails = ({ projects, anos, loading }) => {
 
   return (
     <div className="project-details-container">
-      <div className="project-header">
-        <h1 className="project-title">{project.titulo}</h1>
-        <p className="project-category">{project.categoria.nombre}</p>
+      {/* Título del proyecto */}
+      <h1 className="project-title">{project.titulo}</h1>
+
+      {/* Contenedor principal */}
+      <div className="project-content">
+        {/* Imagen del proyecto */}
+        <div className="project-image">
+          <img
+            src={project.imagen || "https://via.placeholder.com/300x200"} // Imagen por defecto
+            alt={`Imagen del proyecto ${project.titulo}`}
+            className="project-image-style"
+          />
+        </div>
+
+        {/* Información del proyecto */}
+        <div className="project-info-box">
+          <h3>Información del Proyecto</h3>
+          <p>
+            <strong>Año y Semestre:</strong>{" "}
+            {project.año
+              ? `${project.año.año} - Semestre ${project.año.semestre}`
+              : "No hay información"}
+          </p>
+          <p>
+            <strong>Categoría:</strong>{" "}
+            {project.categoria?.nombre || "No hay información"}
+          </p>
+          <p>
+            <strong>Documento:</strong>{" "}
+            {project.documento ? (
+              <a
+                href={project.documento}
+                download // Este atributo permite la descarga directa del archivo
+                className="download-link"
+              >
+                Descargar Documento
+              </a>
+            ) : (
+              "No hay información"
+            )}
+          </p>
+          <p>
+            <strong>Video:</strong>{" "}
+            {project.video ? (
+              <video
+                className="project-video"
+                src={project.video}
+                controls
+                width="600"
+              >
+                Tu navegador no soporta la reproducción de video.
+              </video>
+            ) : (
+              "No hay información"
+            )}
+          </p>
+        </div>
       </div>
 
-      <div className="project-main">
-        {/* Contenedor Flex con la imagen a la izquierda y la info a la derecha */}
-        <div className="project-image">
-          <img src={project.imagen} alt={project.titulo} />
-        </div>
-
-        <div className="project-info">
-          <p className="project-description">{project.descripcion}</p>
-          <div className="project-meta">
-            <p><strong>Año:</strong> {project.año.año} - Semestre: {project.año.semestre}</p>
-            <p><strong>GitHub:</strong> {project.url_github || 'No disponible'}</p>
-            {project.documento && <a className="download-link" href={project.documento} target="_blank" rel="noopener noreferrer">Descargar Documento</a>}
-            {project.video && <iframe className="project-video" src={project.video} title="Video de producto" />}
-          </div>
-        </div>
+      {/* Descripción */}
+      <div className="project-description">
+        <h3>Descripción:</h3>
+        <p>{project.descripcion || "No hay información disponible."}</p>
       </div>
     </div>
   );
 };
 
 export default ProjectDetails;
-

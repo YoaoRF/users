@@ -1,5 +1,5 @@
 import React from "react";
-import "/Users/Steven/usuarios/fronted/src/styles/footer.css"
+import "../styles/footer.css";
 
 
 const Footer = () => {
@@ -37,7 +37,7 @@ const Footer = () => {
           <div className="information">
             <p className="title-footer">Información</p>
             <ul>
-              <li><a href="#">Acerca de Nosotros</a></li>
+              <li><a href="/quienes-somos">Acerca de Nosotros</a></li>
             </ul>
           </div>
 

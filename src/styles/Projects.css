@@ -49,14 +49,14 @@
 
 /* Tarjeta de proyecto */
 .project-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 300px; /* Tamaño máximo para tarjetas */
+  height: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  overflow: hidden;
 }
 
 .project-card:hover {
@@ -66,16 +66,15 @@
 
 /* Imagen del proyecto */
 .project-image-container {
-  height: 200px;
   width: 100%;
+  height: 200px; /* Tamaño fijo para evitar escalado excesivo */
   overflow: hidden;
-  border-bottom: 2px solid #f0f0f0;
 }
 
 .project-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Ajusta la imagen al tamaño sin deformarla */
 }
 
 .placeholder-image {
@@ -144,4 +143,75 @@
   color: #777;
   margin-top: 20px;
   text-align: center;
+}
+/* Contenedor de filtros */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Selectores de filtro */
+.filter-select {
+  padding: 10px 15px;
+  font-size: 1rem;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Botón para mostrar/ocultar filtros */
+.toggle-filters-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s ease;
+}
+
+.toggle-filters-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Opciones del selector */
+.filter-select option {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Diseño responsivo para filtros */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .filter-select {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+img {
+  max-width: 100%;
+  height: auto;
 }

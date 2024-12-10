@@ -1,77 +1,160 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "/Users/Steven/usuarios/fronted/src/styles/Header.css"
+import axios from "axios";
+import "../styles/Header.css";
+
 const Header = ({ user, setUser }) => {
-  const [searchInput, setSearchInput] = useState(""); // Input de búsqueda
+  const [searchInput, setSearchInput] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false); // Estado para controlar el menú hamburguesa
   const navigate = useNavigate();
 
-  // Manejo del formulario de búsqueda
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchInput.trim()) {
-      navigate(`/lista-proyectos?search=${searchInput.trim()}`); // Redirige con el parámetro de búsqueda
-      setSearchInput(""); // Limpiar el input después de buscar
+  const handleInputChange = async (e) => {
+    const value = e.target.value;
+    setSearchInput(value);
+
+    if (value.trim()) {
+      try {
+        const response = await axios.get(
+          `https://springtecsupvault.onrender.com/proyectos?titulo_like=${value.trim()}`
+        );
+        const filteredSuggestions = response.data.filter((project) =>
+          project.titulo.toLowerCase().includes(value.trim().toLowerCase())
+        );
+        setSuggestions(filteredSuggestions);
+      } catch (error) {
+        console.error("Error al obtener sugerencias:", error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
     }
   };
 
-  // Manejo del cierre de sesión
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchInput.trim()) {
+      const project = suggestions.find(
+        (proj) =>
+          proj.titulo.toLowerCase() === searchInput.trim().toLowerCase()
+      );
+      if (project) {
+        navigate(`/proyectos/${project.id}`);
+      } else {
+        alert("Proyecto no encontrado. Por favor, verifica el nombre.");
+      }
+    }
+    setSearchInput("");
+    setSuggestions([]);
+  };
+
+  const handleSuggestionClick = (id) => {
+    navigate(`/proyectos/${id}`);
+    setSearchInput("");
+    setSuggestions([]);
+  };
+
   const handleLogout = () => {
-    setUser(null); // Limpiar el estado del usuario
-    navigate("/"); // Redirigir a la página principal
-    alert("Sesión cerrada correctamente."); // Notificación de cierre
+    setUser(null);
+    navigate("/");
+    alert("Sesión cerrada correctamente.");
   };
 
   return (
     <header className="navbar">
       <div className="navbar-container">
-        {/* Logo */}
-        <h1 className="navbar-logo">
-          <Link to="/">TECSUP VAULT</Link>
-        </h1>
+        {/* Cambiar texto por imagen */}
+        <div className="navbar-logo">
+          <Link to="/">
+            <img
+              src="/img/logito.png"
+              alt="TECSUP Vault"
+              className="navbar-logo-image"
+            />
+          </Link>
+        </div>
 
-        {/* Menú de navegación */}
-        <nav className="navbar-menu">
+        {/* Botón hamburguesa */}
+        <button 
+          className="hamburger-button" 
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          &#9776; {/* Icono de hamburguesa */}
+        </button>
+
+        <nav className={`navbar-menu ${menuOpen ? "open" : ""}`}>
           <ul className="menu-list">
-            {/* Enlaces generales */}
-            <li><Link to="/">INICIO</Link></li>
-            <li><a href="/quienes-somos">QUIÉNES SOMOS?</a></li>
-            <li><a href="#ia-proximos">I.A. PRÓXIMOS</a></li>
-            <li><Link to="/lista-proyectos">LISTA DE PROYECTOS</Link></li>
-            <li><a href="#blogs">MÁS BLOGS</a></li>
-
-            {/* Condicional para usuario autenticado */}
-            {!user ? (
+            <li>
+              <Link to="/">INICIO</Link>
+            </li>
+            <li>
+              <a href="/alumnos">ALUMNOS</a>
+            </li>
+            <li>
+              <a href="/quienes-somos">QUIÉNES SOMOS?</a>
+            </li>
+            <li>
+              <a href="#ia-proximos">I.A. PRÓXIMOS</a>
+            </li>
+            {user ? (
               <>
-                <li><Link to="/login">INICIAR SESIÓN</Link></li>
-                <li><Link to="/register">REGISTRARSE</Link></li>
-                <br></br>
-              </>
-            ) : (
-              <>
-                <li><span>Bienvenido, {user.name || "Usuario"}</span></li>
+                <li>
+                  <Link to="/lista-proyectos">LISTA DE PROYECTOS</Link>
+                </li>
+                <li>
+                  <a href="/Acerca">ACERCA DE</a>
+                </li>
+                <li>
+                  <span>Bienvenido, {user.name || "Usuario"}</span>
+                </li>
                 <li>
                   <button onClick={handleLogout} className="logout-button">
                     CERRAR SESIÓN
                   </button>
                 </li>
               </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">INICIAR SESIÓN</Link>
+                </li>
+                <li>
+                  <Link to="/register">REGISTRARSE</Link>
+                </li>
+              </>
             )}
           </ul>
         </nav>
 
-        {/* Barra de búsqueda */}
-        <div className="navbar-search">
-          <form onSubmit={handleSearch} className="search-form">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Buscar proyectos..."
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <button type="submit" className="search-button">Buscar</button>
-          </form>
-        </div>
+        {user && (
+          <div className="navbar-search">
+            <form onSubmit={handleSearch} className="search-form">
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Buscar proyectos..."
+                value={searchInput}
+                onChange={handleInputChange}
+              />
+              <button type="submit" className="search-button">
+                Buscar
+              </button>
+            </form>
+            {suggestions.length > 0 && (
+              <ul className="suggestions-list">
+                {suggestions.map((project) => (
+                  <li
+                    key={project.id}
+                    className="suggestion-item"
+                    onClick={() => handleSuggestionClick(project.id)}
+                  >
+                    {project.titulo}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )}
       </div>
     </header>
   );

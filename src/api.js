@@ -1,29 +1,39 @@
 import axios from 'axios';
 
-// Crear instancia de Axios con baseURL
-const api = axios.create({
-  baseURL: 'https://api-proyecto-integrador.onrender.com/api/',
-  headers: {
-    // Añadir headers opcionales que podrían ayudar con CORS
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  },
-});
+// URL base de tu API en la nube
+const API_BASE_URL = 'https://springtecsupvault.onrender.com';
 
-// Método para obtener proyectos
+// Función para obtener todos los proyectos
 export const getProyectos = async () => {
   try {
-    const response = await api.get('proyectos/');
-    return response.data; // Devuelve los datos directamente
+    const response = await axios.get(`${API_BASE_URL}/proyectos`);
+    return response.data; // Asegúrate de que `response.data` sea el formato esperado
   } catch (error) {
-    // Manejamos errores de CORS o conexión
-    if (error.response) {
-      console.error('Error en la respuesta del servidor:', error.response);
-    } else if (error.request) {
-      console.error('Sin respuesta del servidor. Problema de CORS u otra causa:', error.request);
-    } else {
-      console.error('Error al configurar la solicitud:', error.message);
-    }
-    throw error; // Re-lanzar el error para que pueda ser manejado donde se llame
+    console.error('Error al obtener los proyectos:', error);
+    throw error;
   }
 };
+
+// Función para obtener todos los comentarios
+export const getComentarios = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/comentarios`);
+    return response.data;
+  } catch (error) {
+    console.error('Error al obtener los comentarios:', error);
+    throw error;
+  }
+};
+
+// Función para crear un comentario
+export const crearComentario = async (comentario) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/comentarios`, comentario);
+    return response.data; // La respuesta debe devolver el comentario creado
+  } catch (error) {
+    console.error('Error al crear el comentario:', error);
+    throw error;
+  }
+};
+
+// Puedes agregar más funciones según sea necesario (por ejemplo, PUT, DELETE)

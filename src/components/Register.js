@@ -1,43 +1,67 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // Manejo del formulario de registro
   const handleRegister = (e) => {
     e.preventDefault();
-    if (username && password) {
-      // Guardar en localStorage (simulación de base de datos)
-      localStorage.setItem("user", JSON.stringify({ username, password }));
-      alert("Usuario registrado con éxito.");
-      navigate("/login"); // Redirigir a login después de registrarse
-    } else {
-      alert("Por favor, completa todos los campos.");
+
+    // Obtenemos los usuarios actuales de LocalStorage
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // Validamos que el correo no esté ya registrado
+    if (users.some((user) => user.email === email)) {
+      alert("El correo ya está registrado. Usa otro o inicia sesión.");
+      return;
     }
+
+    // Agregamos el nuevo usuario
+    const newUser = { name, email, password };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Registro exitoso. Ahora puedes iniciar sesión.");
+    navigate("/login");
   };
 
   return (
     <div className="auth-container">
-      <h2>REGISTRARSE</h2>
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Registrar</button>
-      </form>
-      <p>Ya tienes cuenta? <button onClick={() => navigate('/login')}>Inicia sesión aquí</button></p>
+      <div className="auth-card">
+        <h2>Crear Cuenta</h2>
+        <form onSubmit={handleRegister}>
+          <input
+            type="text"
+            placeholder="Nombre Completo"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Correo Electrónico"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit" className="auth-button">
+            Registrarse
+          </button>
+        </form>
+        <p>
+          ¿Ya tienes una cuenta? <Link to="/login">Inicia sesión</Link>
+        </p>
+      </div>
     </div>
   );
 };

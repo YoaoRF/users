@@ -1,79 +1,158 @@
-.login-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+/* Fondo de la página con un gradiente de azul a verde */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(45deg, #4e73df, #2d9cdb);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Efecto de fondo con movimiento sutil */
+.auth-container::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url('https://via.placeholder.com/800x400') no-repeat center center;
+  background-size: cover;
+  opacity: 0.2;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  animation: slideBackground 20s infinite alternate;
+}
+
+/* Animación de fondo para un movimiento sutil */
+@keyframes slideBackground {
+  0% {
+    background-position: left top;
   }
-  
-  .login-container h2 {
-    margin-bottom: 20px;
+  100% {
+    background-position: right bottom;
   }
-  
-  .login-container input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+}
+
+/* Estilo de la tarjeta de autenticación con animación */
+.auth-card {
+  width: 100%;
+  max-width: 450px;
+  background-color: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-30px);
+  animation: slideIn 0.8s ease-out forwards;
+}
+
+/* Animación para la tarjeta de autenticación */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
   }
-  
-  .login-container button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .login-container a {
-    color: #007bff;
-    text-decoration: none;
+}
+
+/* Título */
+.auth-card h2 {
+  font-size: 30px;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+/* Animación de aparición del título */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  
-  .login-container a:hover {
-    text-decoration: underline;
+  100% {
+    opacity: 1;
   }
-  .register-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+}
+
+/* Estilo para los campos de entrada con animación */
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 2px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+/* Animación de deslizamiento de los campos de entrada */
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
   }
-  
-  .register-container h2 {
-    margin-bottom: 20px;
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
-  
-  .register-container input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .register-container button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .register-container a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .register-container a:hover {
-    text-decoration: underline;
-  }
-    
+}
+
+/* Efecto de foco en los campos de entrada */
+.auth-card input:focus {
+  border-color: #4e73df;
+  box-shadow: 0 0 8px rgba(78, 115, 223, 0.4);
+  outline: none;
+}
+
+/* Estilo del botón con animación de escala */
+.auth-card button {
+  width: 100%;
+  padding: 14px;
+  background-color: #2d9cdb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUp 0.6s 0.3s ease-out forwards;
+}
+
+/* Efecto de hover y animación de escala */
+.auth-card button:hover {
+  background-color: #1c7ec1;
+  transform: scale(1.05);
+}
+
+/* Estilo para los enlaces */
+.auth-card p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #888;
+}
+
+.auth-card p a {
+  color: #4e73df;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+/* Efecto hover en el enlace */
+.auth-card p a:hover {
+  color: #2d9cdb;
+}

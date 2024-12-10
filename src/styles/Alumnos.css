@@ -1,0 +1,95 @@
+/* Estilo global para la sección de alumnos */
+.alumnos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+  }
+  
+  h2 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 30px;
+  }
+  
+  .grupo {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  
+  .grupo h3 {
+    font-size: 28px;
+    color: #1abc9c;
+    border-bottom: 2px solid #1abc9c;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .grupo .alumnos-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    margin-top: 20px;
+  }
+  
+  .alumno-card {
+    background-color: #fff;
+    width: 100%;
+    max-width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .alumno-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .alumno-card img {
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+  
+  .alumno-card h4 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .alumno-card p {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+  }
+  
+  .alumno-card .grupo-seccion {
+    font-size: 14px;
+    color: #16a085;
+    font-weight: bold;
+  }
+  
+  .alumno-card .año {
+    font-size: 14px;
+    color: #34495e;
+  }
+  
+  /* Estilos de carga de alumnos */
+  .loading {
+    font-size: 18px;
+    color: #16a085;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+  }
+  

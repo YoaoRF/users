@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { getProyectos } from "/Users/Steven/usuarios/fronted/src/api"; // Importamos nuestra función de la API
-import "/Users/Steven/usuarios/fronted/src/styles/Banner.css";
+import { getProyectos } from "../api"; // Importamos nuestra función de la API
+import "../styles/Banner.css";
 import { Link } from "react-router-dom";
 
 const Banner = () => {
   const [proyectos, setProyectos] = useState([]);
   const [randomProjects, setRandomProjects] = useState([]);
 
+  // Fetch proyectos desde la API
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -73,16 +74,31 @@ const Banner = () => {
       {/* Te Podría Interesar */}
       <section className="te-podria-interesar">
         <h2 style={{ textAlign: "center" }}>Te podría interesar</h2>
-        <div className="projects">
+        <div className="proyects-container">
           {randomProjects.length > 0 ? (
-            randomProjects.map((project, index) => (
-              <div key={index} className="project">
-                <img
-                  src={project.imagen || "/img/placeholder.jpg"} // Usar un placeholder si no hay imagen
-                  alt={project.titulo || "Proyecto sin título"}
-                />
-                <p>{project.titulo || "No hay información"}</p>
-              </div>
+            randomProjects.map((project) => (
+              <Link
+                key={project.id}
+                to={`/proyectos/${project.id}`}
+                className="proyect-card"
+              >
+                <div className="proyect-card-content">
+                  {/* Imagen del proyecto */}
+                  <img
+                    src={project.imagen || "/img/placeholder.jpg"} // Imagen por defecto si no hay
+                    alt={project.titulo || "Proyecto sin título"}
+                    className="proyect-card-image"
+                  />
+
+                  {/* Información del proyecto */}
+                  <div className="proyect-card-info">
+                    <h3 className="proyect-card-title">{project.titulo || "Sin título"}</h3>
+                    <p className="proyect-card-description">
+                      {project.descripcion?.slice(0, 60) || "Sin descripción"}...
+                    </p>
+                  </div>
+                </div>
+              </Link>
             ))
           ) : (
             <p>No hay proyectos disponibles</p>
@@ -92,12 +108,7 @@ const Banner = () => {
 
       {/* Sección de proyectos */}
       <section className="projects-section">
-        <h2>Mejores Proyectos</h2>
-        <div className="filters">
-          <button>Destacados</button>
-          <button>Más Recientes</button>
-          <button>Mejor Evaluados</button>
-        </div>
+      
         <div className="projects">
           <div className="project">
             <img src="/img/cangt.png" alt="Sistema de Gestión Escolar" />
